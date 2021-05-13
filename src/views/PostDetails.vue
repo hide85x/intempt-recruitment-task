@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <h2 class="mb-10">Post deatils</h2>
-    <v-card v-if="post" class="elevation-11">
+    <v-card v-if="post" class="elevation-11 mb-5">
       <v-card-title > {{ post.title }} </v-card-title>
       <v-card-text class="text-h6"> {{ post.body }} </v-card-text>
       <v-col v-if="editMode">

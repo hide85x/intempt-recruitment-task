@@ -43,7 +43,6 @@ export default {
   methods: {
     createPost() {
       this.validate();
-      console.log(this.valid)
       if (this.valid) {
         const payload = {
           id: Math.floor(Math.random() * 9999999999) + 9878971,

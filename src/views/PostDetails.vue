@@ -1,9 +1,9 @@
 <template>
   <v-container>
     <h2 class="mb-10">Post deatils</h2>
-    <v-card v-if="post">
-      <v-card-title primary-title> {{ post.title }} </v-card-title>
-      <v-card-text> {{ post.body }} </v-card-text>
+    <v-card v-if="post" class="elevation-11">
+      <v-card-title > {{ post.title }} </v-card-title>
+      <v-card-text class="text-h6"> {{ post.body }} </v-card-text>
       <v-col v-if="editMode">
         <v-textarea
           v-model="updatedTitle"
@@ -30,12 +30,15 @@
         <v-btn color="error" @click="deletePost">delete</v-btn>
       </v-card-actions>
     </v-card>
+    <Comments  :idParam="idParam"/>
   </v-container>
 </template>
 
 <script>
+import Comments from "../components/Comments";
 export default {
   name: "PostDetails",
+  components: { Comments },
   data() {
     return {
       idParam: this.$route.params.id,
@@ -60,14 +63,12 @@ export default {
       this.$store.commit("updatePost", payload);
     },
     deletePost() {
-      console.log(this.idParam);
       this.$store.commit("deletePost", { postId: this.idParam });
       this.$router.push("/");
     },
   },
   mounted() {
     const post = this.$store.getters.getOnePost(this.idParam);
-    
     this.updatedTitle = post.title;
     this.updatedBody = post.body;
   },
@@ -75,9 +76,6 @@ export default {
     post() {
       return this.$store.getters.getOnePost(this.idParam);
     },
-    comments() {
-      return this.$store.getters.getPostComme
-    }
   },
 };
 </script>

@@ -24,7 +24,7 @@
 import posts from "../store/posts";
 export default {
   name: "Posts",
-
+  
   data: () => ({}),
   methods: {},
   mounted() {},

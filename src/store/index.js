@@ -8,6 +8,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     posts: [],
+    comments: []
   },
   getters: {
     getPosts(state) {
@@ -15,16 +16,21 @@ export default new Vuex.Store({
     },
     getOnePost: (state) => (postId) => {
       return state.posts.find(el => el.id == postId)
-
     },
-    getPostComments: (state)=>async (postId)=> {
-      console.log(postId)
-      const comments= await axios(`https://jsonplaceholder.typicode.com/posts/${postId}/comments`)
-      console.log(comments.data)
-      return  comments
-    }
+    getComments(state){
+      return state.comments}
+
   },
   mutations: {
+    async getPostComments(state, postId) {
+      try {
+        const comments = await  axios(`https://jsonplaceholder.typicode.com/posts/${postId}/comments`)
+        state.comments = comments.data
+      }
+      catch (err) {
+        console.log(err)
+      }
+    },
     async collectPosts() {
       try {
         const res = await axios('https://jsonplaceholder.typicode.com/posts')
@@ -47,10 +53,8 @@ export default new Vuex.Store({
     }
   },
   actions: {
-
-    collectPosts({ commit }) {
-      commit('collectPosts')
-    }
+    // getPostComments({ commit }) { commit('getPostComments') },
+    collectPosts({ commit }) { commit('collectPosts', ) }
   },
   modules: {
   }

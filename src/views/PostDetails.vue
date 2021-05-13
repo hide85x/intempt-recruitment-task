@@ -23,6 +23,7 @@
         <v-btn class="mb-16 ml-4" color="success" @click="updatePost"
           >save</v-btn
         >
+        <h2>{{comments}}</h2>
         <v-btn class="mb-16 ml-4" color="" @click="cancel">close</v-btn>
       </v-col>
       <v-card-actions>
@@ -67,7 +68,7 @@ export default {
   },
   mounted() {
     const post = this.$store.getters.getOnePost(this.idParam);
-    
+    const comments= this.$store.getters.getPostCommets(this.idParam)
     this.updatedTitle = post.title;
     this.updatedBody = post.body;
   },
@@ -75,6 +76,9 @@ export default {
     post() {
       return this.$store.getters.getOnePost(this.idParam);
     },
+    comments() {
+      return this.$store.getters.getPostCommets(this.idParam)
+    }
   },
 };
 </script>

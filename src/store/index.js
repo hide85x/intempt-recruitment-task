@@ -7,7 +7,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    posts: []
+    posts: [],
   },
   getters: {
     getPosts(state) {
@@ -16,6 +16,12 @@ export default new Vuex.Store({
     getOnePost: (state) => (postId) => {
       return state.posts.find(el => el.id == postId)
 
+    },
+    getPostComments: (state)=>async (postId)=> {
+      console.log(postId)
+      const comments= await axios(`https://jsonplaceholder.typicode.com/posts/${postId}/comments`)
+      console.log(comments.data)
+      return  comments
     }
   },
   mutations: {

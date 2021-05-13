@@ -14,9 +14,16 @@ export default {
   components: {
     Nav,
   },
-  data: () => ({
-    //
-  }),
+  computed: {
+    posts() {
+      return this.$store.getters.getPosts
+    }
+  },
+  mounted() {
+    if(!this.posts.length){
+      this.$store.dispatch("collectPosts");
+    }
+  },
 };
 </script>
 <style lang="scss" scoped>

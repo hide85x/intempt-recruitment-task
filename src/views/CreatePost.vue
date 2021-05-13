@@ -1,70 +1,66 @@
 <template>
+  <v-container>
+    <h2 class="mb-10">Create new post</h2>
+    <v-card class="pa-5">
+      <v-form ref="form" v-model="valid" lazy-validation>
+        <v-text-field
+          v-model="title"
+          :counter="20"
+          :rules="requiredRule"
+          label="title"
+          required
+        ></v-text-field>
 
-<h2>Create new Post</h2>
- <v-form v-model="valid" d-flex>
-    <v-container>
-      <v-row>
-        <v-col
-          cols="12"
-          md="4"
+       <v-textarea
+          v-model="body"
+          class="ma-4"
+          value="asdasd"
+          label="body"
         >
-          <v-text-field
-            v-model="firstname"
-            :rules="nameRules"
-            :counter="10"
-            label="First name"
-            required
-          ></v-text-field>
-        </v-col>
+        </v-textarea>
 
-        <v-col
-          cols="12"
-          md="4"
+        <v-btn
+          :disabled="!valid"
+          color="primary"
+          class="mr-4 mt-4"
+          @click="createPost"
         >
-          <v-text-field
-            v-model="lastname"
-            :rules="nameRules"
-            :counter="10"
-            label="Last name"
-            required
-          ></v-text-field>
-        </v-col>
-
-        <v-col
-          cols="12"
-          md="4"
-        >
-          <v-text-field
-            v-model="email"
-            :rules="emailRules"
-            label="E-mail"
-            required
-          ></v-text-field>
-        </v-col>
-      </v-row>
-    </v-container>
-  </v-form>
+          Create post
+        </v-btn>
+      </v-form>
+    </v-card>
+  </v-container>
 </template>
 
 <script>
 export default {
-    data: () => ({
-      valid: false,
-      firstname: '',
-      lastname: '',
-      nameRules: [
-        v => !!v || 'Name is required',
-        v => v.length <= 10 || 'Name must be less than 10 characters',
-      ],
-      email: '',
-      emailRules: [
-        v => !!v || 'E-mail is required',
-        v => /.+@.+/.test(v) || 'E-mail must be valid',
-      ],
-    }),
-  }
+  data: () => ({
+    valid: true,
+    title: "",
+    body: "",
+    requiredRule: [(v) => !!v || "This field is required"],
+  }),
+
+  methods: {
+    createPost() {
+      this.validate();
+      console.log(this.valid)
+      if (this.valid) {
+        const payload = {
+          id: Math.floor(Math.random() * 9999999999) + 9878971,
+          title: this.title,
+          body: this.body,
+        };
+        this.$store.commit("addPost", payload);
+        this.$router.push("/");
+      }
+    },
+    validate() {
+     this.valid = this.$refs.form.validate();
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-
 </style>

@@ -32,7 +32,6 @@ export default new Vuex.Store({
 
     },
     updatePost(state, { postId, updatedTitle, updatedBody }) {
-      console.log(updatedBody)
       let postToUpdate = state.posts.find(el => el.id == postId)
       postToUpdate.title = updatedTitle
       postToUpdate.body = updatedBody

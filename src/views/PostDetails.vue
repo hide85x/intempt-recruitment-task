@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <h2 class="mb-10">Post deatils</h2>
-    <v-card>
+    <v-card v-if="post">
       <v-card-title primary-title> {{ post.title }} </v-card-title>
       <v-card-text> {{ post.body }} </v-card-text>
       <v-col v-if="editMode">
@@ -42,7 +42,6 @@ export default {
       editMode: false,
       updatedTitle: "",
       updatedBody: "",
-      post:null
     };
   },
   methods: {
@@ -68,11 +67,15 @@ export default {
   },
   mounted() {
     const post = this.$store.getters.getOnePost(this.idParam);
-    this.post=post
+    
     this.updatedTitle = post.title;
     this.updatedBody = post.body;
   },
-
+  computed: {
+    post() {
+      return this.$store.getters.getOnePost(this.idParam);
+    },
+  },
 };
 </script>
 

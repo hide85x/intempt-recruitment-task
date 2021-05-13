@@ -11,13 +11,13 @@
           required
         ></v-text-field>
 
-       <v-textarea
+       <v-text-field
           v-model="body"
           class="ma-4"
-          value="asdasd"
           label="body"
+          :rules="requiedRule"
         >
-        </v-textarea>
+        </v-text-field>
 
         <v-btn
           :disabled="!valid"
